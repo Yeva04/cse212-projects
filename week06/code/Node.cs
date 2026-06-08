@@ -13,33 +13,61 @@ public class Node
     {
         // TODO Start Problem 1
 
-        if (value < Data)
-        {
-            // Insert to the left
-            if (Left is null)
-                Left = new Node(value);
-            else
-                Left.Insert(value);
-        }
+       // Ignore duplicates
+    if (value == Data)
+    {
+        return;
+    }
+
+    if (value < Data)
+    {
+        if (Left is null)
+            Left = new Node(value);
         else
-        {
-            // Insert to the right
-            if (Right is null)
-                Right = new Node(value);
-            else
-                Right.Insert(value);
-        }
+            Left.Insert(value);
+    }
+    else
+    {
+        if (Right is null)
+            Right = new Node(value);
+        else
+            Right.Insert(value);
+    }
+}
+
+
+// TODO Start Problem 2
+  public bool Contains(int value)
+{
+    // Found it
+    if (value == Data)
+    {
+        return true;
     }
 
-    public bool Contains(int value)
+    // Search left
+    if (value < Data)
     {
-        // TODO Start Problem 2
+        if (Left is null)
+            return false;
+
+        return Left.Contains(value);
+    }
+
+    // Search right
+    if (Right is null)
         return false;
-    }
 
-    public int GetHeight()
-    {
-        // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
-    }
+    return Right.Contains(value);
+}
+
+// TODO Start Problem 4
+  public int GetHeight()
+{
+    int leftHeight = Left?.GetHeight() ?? 0;
+    int rightHeight = Right?.GetHeight() ?? 0;
+
+    return 1 + Math.Max(leftHeight, rightHeight);
+}
+
 }
